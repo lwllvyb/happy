@@ -2,6 +2,9 @@
     "name": "monorepo",
     "private": true,
     "scripts": {
+        "build": "node ./scripts/build-all.cjs",
+        "build:server:image": "docker build -f Dockerfile.server -t ${SERVER_IMAGE:-happy-server}:${SERVER_TAG:-local} .",
+        "deploy:server": "node ./scripts/deploy-server.cjs",
         "cli": "pnpm --filter happy cli",
         "release": "node ./scripts/release.cjs",
         "web": "pnpm --filter happy-app web",
