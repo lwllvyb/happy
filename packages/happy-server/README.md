@@ -52,6 +52,33 @@ This uses:
 
 Data persists in the `happy-data` Docker volume across container restarts.
 
+## Production Server Image
+
+Use the root deployment script when you want to build, push, and deploy the
+Kubernetes server image in one command:
+
+```bash
+pnpm deploy:server -- --image ghcr.io/your-org/happy-server --tag latest
+```
+
+The script uses `Dockerfile.server`, replaces the image in
+`packages/happy-server/deploy/handy.yaml`, runs `kubectl apply`, and waits for
+`deployment/handy-server` to roll out. It expects your Kubernetes context and
+registry login to already be configured.
+
+For a build-only check:
+
+```bash
+pnpm deploy:server -- --image ghcr.io/your-org/happy-server --no-push --no-apply
+```
+
+To verify the generated commands and rendered Kubernetes manifest without
+requiring Docker or Kubernetes access:
+
+```bash
+pnpm deploy:server -- --image ghcr.io/your-org/happy-server --dry-run
+```
+
 ### Environment Variables
 
 | Variable | Required | Default | Description |
